@@ -5,7 +5,11 @@ import Button from '../ui/Button';
 import Input from '../ui/Input';
 import Card from '../ui/Card';
 
-const RegisterForm: React.FC = () => {
+interface RegisterFormProps {
+  navigate: (path: string) => void;
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({ navigate }) => {
   const { register, isLoading } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,7 +38,7 @@ const RegisterForm: React.FC = () => {
 
     try {
       await register(name, email, password);
-      // Redirect will be handled by the auth context after successful registration
+      navigate('/dashboard'); // Redirect on success
     } catch (err) {
       setError('Failed to create an account. Please try again.');
       console.error(err);
@@ -47,9 +51,13 @@ const RegisterForm: React.FC = () => {
         <h2 className="text-2xl font-bold text-gray-900">Create a new account</h2>
         <p className="mt-2 text-sm text-gray-600">
           Or{' '}
-          <a href="/login" className="font-medium text-primary hover:text-primary-dark">
+          <button
+            type="button"
+            className="font-medium text-primary hover:text-primary-dark"
+            onClick={() => navigate('/login')}
+          >
             sign in to your existing account
-          </a>
+          </button>
         </p>
       </div>
       {error && (

@@ -5,7 +5,11 @@ import Button from '../ui/Button';
 import Input from '../ui/Input';
 import Card from '../ui/Card';
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  navigate: (path: string) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ navigate }) => {
   const { login, isLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +26,7 @@ const LoginForm: React.FC = () => {
 
     try {
       await login(email, password);
-      // Redirect will be handled by the auth context after successful login
+      navigate('/dashboard'); // Redirect on success
     } catch (err) {
       setError('Invalid email or password');
       console.error(err);
@@ -35,16 +39,22 @@ const LoginForm: React.FC = () => {
         <h2 className="text-2xl font-bold text-gray-900">Sign in to your account</h2>
         <p className="mt-2 text-sm text-gray-600">
           Or{' '}
-          <a href="/register" className="font-medium text-primary hover:text-primary-dark">
+          <button
+            type="button"
+            className="font-medium text-primary hover:text-primary-dark"
+            onClick={() => navigate('/register')}
+          >
             create a new account
-          </a>
+          </button>
         </p>
       </div>
+
       {error && (
         <div className="bg-error/10 text-error px-4 py-3 rounded-md mb-4">
           {error}
         </div>
       )}
+
       <form onSubmit={handleSubmit}>
         <Input
           label="Email address"
@@ -74,10 +84,14 @@ const LoginForm: React.FC = () => {
               Remember me
             </label>
           </div>
-          <a href="/forgot-password" className="text-sm font-medium text-primary hover:text-primary-dark">
+          <a
+            href="/forgot-password"
+            className="text-sm font-medium text-primary hover:text-primary-dark"
+          >
             Forgot your password?
           </a>
         </div>
+
         <Button
           type="submit"
           className="w-full"

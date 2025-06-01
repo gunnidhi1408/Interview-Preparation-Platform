@@ -4,7 +4,12 @@ import Button from '../components/ui/Button';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 
-const HomePage: React.FC = () => {
+// ✅ Define props interface
+interface HomePageProps {
+  navigate: (path: string) => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -25,10 +30,15 @@ const HomePage: React.FC = () => {
                   <Button 
                     className="bg-white text-primary hover:bg-gray-100"
                     leftIcon={<Play size={16} />}
+                    onClick={() => navigate('/interviews')}
                   >
                     Start Practicing
                   </Button>
-                  <Button variant="outline" className="border-white text-white hover:bg-white/10">
+                  <Button 
+                    variant="outline" 
+                    className="border-white text-white hover:bg-white/10"
+                    onClick={() => navigate('/dashboard')}
+                  >
                     Learn More
                   </Button>
                 </div>
@@ -58,7 +68,10 @@ const HomePage: React.FC = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              <div className="bg-gray-50 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+              <div 
+                className="bg-gray-50 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => navigate('/interviews')}
+              >
                 <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6">
                   <Play size={24} />
                 </div>
@@ -66,12 +79,15 @@ const HomePage: React.FC = () => {
                 <p className="text-gray-600 mb-4">
                   Choose from various job roles and difficulty levels to simulate real interview experiences.
                 </p>
-                <a href="/interviews" className="text-primary font-medium flex items-center hover:underline">
+                <span className="text-primary font-medium flex items-center hover:underline">
                   Try it now <ChevronRight size={16} className="ml-1" />
-                </a>
+                </span>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+              <div 
+                className="bg-gray-50 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => navigate('/dashboard')}
+              >
                 <div className="w-12 h-12 bg-accent/10 text-accent rounded-lg flex items-center justify-center mb-6">
                   <Award size={24} />
                 </div>
@@ -79,12 +95,15 @@ const HomePage: React.FC = () => {
                 <p className="text-gray-600 mb-4">
                   Receive personalized feedback on your responses, including clarity, confidence, and relevance scores.
                 </p>
-                <a href="/dashboard" className="text-primary font-medium flex items-center hover:underline">
+                <span className="text-primary font-medium flex items-center hover:underline">
                   View demo <ChevronRight size={16} className="ml-1" />
-                </a>
+                </span>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+              <div 
+                className="bg-gray-50 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => navigate('/dashboard')}
+              >
                 <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center mb-6">
                   <BarChart2 size={24} />
                 </div>
@@ -92,9 +111,9 @@ const HomePage: React.FC = () => {
                 <p className="text-gray-600 mb-4">
                   Monitor your improvement over time with detailed analytics and performance insights.
                 </p>
-                <a href="/dashboard" className="text-primary font-medium flex items-center hover:underline">
+                <span className="text-primary font-medium flex items-center hover:underline">
                   See analytics <ChevronRight size={16} className="ml-1" />
-                </a>
+                </span>
               </div>
             </div>
           </div>
@@ -120,68 +139,12 @@ const HomePage: React.FC = () => {
                 <p className="text-lg text-gray-600 mb-6">
                   Upload your resume to receive personalized interview questions based on your experience and skills. Our AI analyzes your resume to identify strengths and potential areas for improvement.
                 </p>
-                <Button leftIcon={<FileText size={16} />}>
+                <Button 
+                  leftIcon={<FileText size={16} />} 
+                  onClick={() => navigate('/resume')}
+                >
                   Upload Your Resume
                 </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* Testimonials */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Success Stories</h2>
-              <p className="max-w-3xl mx-auto text-lg text-gray-600">
-                Hear from users who improved their interview skills and landed their dream jobs.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-gray-50 rounded-xl p-8 shadow-sm">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg mr-4">
-                    JS
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Jessica S.</h4>
-                    <p className="text-sm text-gray-500">Software Engineer</p>
-                  </div>
-                </div>
-                <p className="text-gray-600 italic">
-                  "After using InterviewPro for just two weeks, I felt so much more confident in my technical interviews. The AI feedback helped me improve my communication skills, and I landed a job at a top tech company!"
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-xl p-8 shadow-sm">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-white font-bold text-lg mr-4">
-                    MJ
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Michael J.</h4>
-                    <p className="text-sm text-gray-500">Product Manager</p>
-                  </div>
-                </div>
-                <p className="text-gray-600 italic">
-                  "The customized questions based on my resume were spot on! Many of the questions I practiced with on InterviewPro came up during my actual interviews. Couldn't have prepared better!"
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-xl p-8 shadow-sm">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-white font-bold text-lg mr-4">
-                    AT
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Aisha T.</h4>
-                    <p className="text-sm text-gray-500">Data Analyst</p>
-                  </div>
-                </div>
-                <p className="text-gray-600 italic">
-                  "As someone who gets nervous during interviews, the practice sessions helped me overcome my anxiety. The feedback on my speech patterns was invaluable. Thank you InterviewPro!"
-                </p>
               </div>
             </div>
           </div>
@@ -197,6 +160,7 @@ const HomePage: React.FC = () => {
             <Button 
               className="bg-white text-secondary hover:bg-gray-100 px-8 py-3"
               size="lg"
+              onClick={() => navigate('/login')}
             >
               Get Started For Free
             </Button>

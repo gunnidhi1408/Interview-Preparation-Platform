@@ -10,7 +10,11 @@ import Card from '../components/ui/Card';
 import { ChevronRight, Calendar, BookOpen } from 'lucide-react';
 import { mockSession } from '../data/mockData';
 
-const DashboardPage: React.FC = () => {
+interface DashboardPageProps {
+  navigate: (path: string) => void;
+}
+
+const DashboardPage: React.FC<DashboardPageProps> = ({ navigate }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -26,7 +30,7 @@ const DashboardPage: React.FC = () => {
               </p>
             </div>
             <div>
-              <Button>New Interview</Button>
+              <Button onClick={() => navigate('/interviews')}>New Interview</Button>
             </div>
           </div>
           
@@ -38,7 +42,6 @@ const DashboardPage: React.FC = () => {
             <div className="lg:col-span-2">
               <RecentInterviews sessions={[mockSession]} />
             </div>
-            
             <div>
               <SkillsRadarChart />
             </div>
@@ -87,16 +90,14 @@ const DashboardPage: React.FC = () => {
               </div>
               
               <div className="mt-4 text-center">
-                <a 
-                  href="/scheduled-interviews" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="inline-block w-full"
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  rightIcon={<ChevronRight size={16} />}
+                  onClick={() => navigate('/scheduled-interviews')}
                 >
-                  <Button variant="outline" className="w-full" rightIcon={<ChevronRight size={16} />}>
-                    View All Scheduled Interviews
-                  </Button>
-                </a>
+                  View All Scheduled Interviews
+                </Button>
               </div>
             </Card>
             
@@ -119,7 +120,10 @@ const DashboardPage: React.FC = () => {
                     <span className="text-gray-500 text-xs font-semibold">ARTICLE</span>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 hover:text-primary">How to Answer the "Tell Me About Yourself" Question</h4>
+                    <h4 className="font-medium text-gray-900 hover:text-primary cursor-pointer"
+                        onClick={() => navigate('/resources/article/tell-me-about-yourself')}>
+                      How to Answer the "Tell Me About Yourself" Question
+                    </h4>
                     <p className="text-sm text-gray-500 mt-1">5 min read</p>
                   </div>
                 </li>
@@ -129,7 +133,10 @@ const DashboardPage: React.FC = () => {
                     <span className="text-gray-500 text-xs font-semibold">VIDEO</span>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 hover:text-primary">Top 10 Behavioral Interview Questions and Answers</h4>
+                    <h4 className="font-medium text-gray-900 hover:text-primary cursor-pointer"
+                        onClick={() => navigate('/resources/video/behavioral-questions')}>
+                      Top 10 Behavioral Interview Questions and Answers
+                    </h4>
                     <p className="text-sm text-gray-500 mt-1">15 min video</p>
                   </div>
                 </li>
@@ -139,23 +146,24 @@ const DashboardPage: React.FC = () => {
                     <span className="text-gray-500 text-xs font-semibold">ARTICLE</span>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 hover:text-primary">Answering Technical Questions: Tips and Strategies</h4>
+                    <h4 className="font-medium text-gray-900 hover:text-primary cursor-pointer"
+                        onClick={() => navigate('/resources/article/technical-answers')}>
+                      Answering Technical Questions: Tips and Strategies
+                    </h4>
                     <p className="text-sm text-gray-500 mt-1">8 min read</p>
                   </div>
                 </li>
               </ul>
               
               <div className="mt-6 text-center">
-                <a 
-                  href="/resources" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="inline-block w-full"
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  rightIcon={<ChevronRight size={16} />}
+                  onClick={() => navigate('/resources')}
                 >
-                  <Button variant="outline" className="w-full" rightIcon={<ChevronRight size={16} />}>
-                    Browse All Resources
-                  </Button>
-                </a>
+                  Browse All Resources
+                </Button>
               </div>
             </Card>
           </div>
